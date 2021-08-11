@@ -15,18 +15,16 @@ namespace UnixFor.Pages.Login
 {
     public class LoginPage : BasePage
     {
+        // Singleton
+        public static LoginPage Instance = new LoginPage();
+        //button elements
+        private readonly By LoginBtn = By.XPath("//button[@type='submit']");
+        //text field elements
         private readonly By UserNameField = By.Name("userName");
         private readonly By PasswordField = By.Name("password");
-        private readonly By LoginBtn = By.XPath("//button[@type='submit']");
+        //warning message elements
         private readonly By userNameRequiredMessage = By.CssSelector("#userName+div");
         private readonly By passwordRequiredMessage = By.CssSelector("#password+div");
-        public By dashboardHeading
-        {
-            get
-            {
-                return By.CssSelector("h3.page-title");
-            }
-        }
             
         //Function to insert login credentials into text fields       
         public void InsertLoginDetails(String name, String pwd)
@@ -40,6 +38,8 @@ namespace UnixFor.Pages.Login
             IWebElement btnLogin = GetElement(LoginBtn);
             btnLogin.Click();
         }
+       
+        //Function to check Empty login scenarios
         public void CheckLoginEmptyFieldScenarios(string n, string p)
         {
             InsertLoginDetails(n, p);
@@ -67,6 +67,8 @@ namespace UnixFor.Pages.Login
                 Console.WriteLine("Validation message for Password Field is Empty is displayed");
             }
         }
+
+        //Function to check Invalid login scenarios
         public void CheckLoginInvalidFieldScenarios(string n, string p)
         {
             InsertLoginDetails(n, p);
@@ -93,6 +95,8 @@ namespace UnixFor.Pages.Login
                 Console.WriteLine("Password is incorrect toast message is displayed");
             }
         }
+
+        //Function to check valid login scenario
         public void CheckValidLoginFieldScenarios(string n, string p)
         {
             InsertLoginDetails(n, p);

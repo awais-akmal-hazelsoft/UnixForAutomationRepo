@@ -10,25 +10,29 @@ namespace UnixFor.Tests
     public class PeripheralTypesTests
     {
         PeripheralTypesPage peripheralTypesObj = new PeripheralTypesPage();
+
         [Test, Order(1)]
         public void TestPeripheralTypesOptionSelect()
         {
-            peripheralTypesObj.ClickOnMenuOption(peripheralTypesObj.hardwareConfigurationMenu, peripheralTypesObj.peripheralTypes);
+            peripheralTypesObj.ClickOnMenuOption(PeripheralTypesPage.hardwareConfigurationMenu, PeripheralTypesPage.peripheralTypes);
         }
+
         [Test, Order(2)]
         public void TestToAddInPeripheralTypes()
         {
-            peripheralTypesObj.AddInPeripheralTypesPage("Test Name3", "Test Code3");
+            peripheralTypesObj.AddInPeripheralTypesPage("Test Name4", "Test Code4");
         }
+
         [Test, Order(3)]
         public void TestUpdateInPeripheralTypes()
         {
-            peripheralTypesObj.UpdateInPeripheralTypes("TestName123", "TestName1", "TestCode1");
+            peripheralTypesObj.UpdateInPeripheralTypes("TestName1", "Test Name1", "Test Code1");
         }
+        
         [Test, Order(4)]
         public void TestDeleteInPeripheralTypes()
         {
-            string[] n = { "TestName123", "TestName2", "New Name", "Test Name2", "Test Code2" };
+            string[] n = { "New Name", "TestName2"};
             peripheralTypesObj.DeleteInPeripheralTypes(n);
         }
        
@@ -37,30 +41,43 @@ namespace UnixFor.Tests
         {
             peripheralTypesObj.CheckPaginationByChangingPage();
         }
+        
         [Test, Order(7)]
         public void TestPaginationByChangingPageSize()
         {
             peripheralTypesObj.CheckPaginationByChangingPageSize();
         }
+        
         [Test, Order(8)]
         public void TestIsModalReadOnly()
         {
-            peripheralTypesObj.IsElementDisable(peripheralTypesObj.modal);
+            peripheralTypesObj.CheckReadOnlyView(peripheralTypesObj.modal);
         }
+        
         [Test, Order(9)]
         public void TestColumnVisibility()
         {
-            peripheralTypesObj.CheckColumnVisibility();
+            string[] columnNames = { "Code", "Name" };
+            peripheralTypesObj.CheckColumnVisibility(columnNames);
         }
+        
         [Test, Order(10)]
-        public void TestSorting()
+        public void TestSortColumn()
         {
             peripheralTypesObj.CheckSorting();
         }
+        
         [Test, Order(11)]
-        public void TestOrdering()
+        public void TestChangeColumnOrder()
         {
             peripheralTypesObj.CheckOrdering();
         }
+        
+        [Test, Order(12)]
+        public void TestActiveDeleteRows()
+        {
+            peripheralTypesObj.ActiveRecord("isActive", "false", "");
+        }
+
     }
 }

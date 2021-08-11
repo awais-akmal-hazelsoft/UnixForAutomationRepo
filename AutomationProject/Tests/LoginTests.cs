@@ -12,6 +12,7 @@ namespace UnixFor.Tests
     {
         private IWebDriver driver;
         LoginPage loginObj = new LoginPage();
+       
         [OneTimeSetUp]
         public void TestInit()
         {
@@ -19,7 +20,7 @@ namespace UnixFor.Tests
             driver.Url = "http://unixfor.hazelsoft.net/";
         }
 
-        //********** Test 2 to test empty field login scenarios ***********
+        //********** Test 1 to test empty field login scenarios ***********
         [TestCase("", "123"), Order(1)]
         [TestCase("123", "")]
         [TestCase("", "")]
@@ -27,7 +28,8 @@ namespace UnixFor.Tests
         {
             loginObj.CheckLoginEmptyFieldScenarios(n, p);
         }
-        //**************Test 3 to test invalid credentials scenarios***************
+       
+        //**************Test 2 to test invalid credentials scenarios***************
         [TestCase("wrong", "Admin!23"), Order(2)]
         [TestCase("wrong", "wrong")]
         [TestCase("admin", "wrong")]
@@ -35,7 +37,8 @@ namespace UnixFor.Tests
         {
             loginObj.CheckLoginInvalidFieldScenarios(n, p);
         }
-        //******************Test 4 to test valid login scenarios*******************
+        
+        //******************Test 3 to test valid login scenarios*******************
         [TestCase("Admin", "Admin!23"), Order(3)]
         public void TestValidLogin(string n, string p)
         {
