@@ -9,6 +9,7 @@ using OpenQA.Selenium.Interactions;
 using UnixFor.Pages.Login;
 using OpenQA.Selenium.Support.UI;
 using System.Linq;
+using UnixFor.Helper;
 
 namespace UnixFor.Pages.HardwareConfiguration
 {
@@ -16,11 +17,11 @@ namespace UnixFor.Pages.HardwareConfiguration
     {
         //button elements
         private By confirmDeleteOkBtn = By.CssSelector("div>button.modal_ok");
-        
+
         //textfield elements
         private By textFieldName = By.CssSelector("input[name='name']");
         private By textFieldCode = By.CssSelector("input[name='code']");
-        
+
         //dropdown elements
         private By actionsDropdown = By.XPath("//div[@class='dropdown'][2]/button");
         private By deleteBtnInDropdown = By.XPath("//button[text()='Delete']");
@@ -48,9 +49,9 @@ namespace UnixFor.Pages.HardwareConfiguration
         //method to check column sorting 
         public void CheckSorting()
         {
-            CheckDescendingSorting("Name");
+            CheckDescendingSorting(Constants.NameColumnHeadingtext);
             driver.Navigate().Refresh();
-            CheckAscendingSorting("Name");
+            CheckAscendingSorting(Constants.NameColumnHeadingtext);
         }
 
         //method to select column in change view modal
@@ -115,6 +116,7 @@ namespace UnixFor.Pages.HardwareConfiguration
                 {
                     Assert.IsTrue(IsElementVisible(paginationNextBtn), "Pagination button is not visible");
                     driver.FindElement(paginationNextBtn).Click();
+                    WaitUntilInvisible(loadingSpinner);
                 }
 
             } while (visibleRows < totalRows);
@@ -122,8 +124,10 @@ namespace UnixFor.Pages.HardwareConfiguration
         //method to check pagination by changing page size and selecting page size 
         public void CheckPaginationByChangingPageSize()
         {
+            WaitUntilInvisible(loadingSpinner);
             Assert.IsTrue(IsElementVisible(paginationSizingDropdown), "Dropdown for page sizing is not displayed");
             GetElement(paginationSizingDropdown).Click();
+            WaitUntilInvisible(loadingSpinner);
             Assert.IsTrue(IsElementVisible(paginationSizingDropdownItem), "Show 50 option is not displayed");
             GetElement(paginationSizingDropdownItem).Click();
             CheckPaginationByChangingPage();
@@ -131,13 +135,12 @@ namespace UnixFor.Pages.HardwareConfiguration
         //method to update a record
         public void UpdateInPeripheralTypes(string nameKey, string updatedName, string updatedCode)
         {
-            List<IWebElement> tableRowsElements = GetRows();
-            int tableRowsCount = tableRowsElements.Count;
             IWebElement btnEdit = null;
             IWebElement name = null;
             IWebElement code = null;
             string testBtnEdit = "";
-            for (int i = 1; i <= tableRowsCount; i++)
+            WaitUntilInvisible(loadingSpinner);
+            for (int i = 1; i <= 10; i++)
             {
                 testBtnEdit = "//div/table/tbody/tr[" + i + "]/td[2]/div/button";
                 btnEdit = GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[2]/div/button"));
@@ -145,14 +148,12 @@ namespace UnixFor.Pages.HardwareConfiguration
                 code = GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[4]/span/span"));
                 if (name.Text == nameKey)
                 {
+                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].innerText=''", name);
+                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].innerText=''", code);
+                    btnEdit.Click();
                     break;
                 }
             }
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].innerText=''", name);
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].innerText=''", code);
-            By btn = By.XPath(testBtnEdit);
-            Assert.IsTrue(IsElementVisible(btn), "Edit button is not displayed");
-            btnEdit.Click();
             Assert.IsTrue(IsElementVisible(modal), "Update Modal is not displayed");
             GetElement(textFieldName).Clear();
             GetElement(textFieldCode).Clear();
@@ -160,7 +161,7 @@ namespace UnixFor.Pages.HardwareConfiguration
             GetElement(textFieldCode).SendKeys(updatedCode);
             GetElement(updateBtn).Click();
             Assert.IsTrue(IsElementVisible(toastMessage), "Updated message is not displayed");
-        }  
+        }
         //method to delete record(s)
         public void DeleteInPeripheralTypes(string[] arrayName)
         {
@@ -171,14 +172,15 @@ namespace UnixFor.Pages.HardwareConfiguration
             GetElement(deleteBtnInDropdown).Click();
             Assert.IsTrue(IsElementVisible(confirmDeleteOkBtn), "Ok button to confirm delete operation is not displayed on peripheral Types Screen");
             GetElement(confirmDeleteOkBtn).Click();
+            Assert.IsTrue(IsElementVisible(toastMessage), "Delete message is not displayed");
         }
         //method to select checkbox of those records which we want to delete
         public void selectCheckboxesToDelete(string[] arr)
         {
-            List<IWebElement> tableRowsElements = GetRows();
             IWebElement inputCheckBox;
             IWebElement name;
-            for (int i = 1; i <= tableRowsElements.Count; i++)
+            WaitUntilInvisible(loadingSpinner);
+            for (int i = 1; i <= 10; i++)
             {
                 inputCheckBox = GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[1]/input"));
                 name = GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[3]/span/span"));
@@ -202,6 +204,11 @@ namespace UnixFor.Pages.HardwareConfiguration
             Assert.IsTrue(IsElementVisible(updateBtn), "Update button in Add Modal");
             GetElement(updateBtn).Click();
             Assert.IsTrue(IsElementVisible(toastMessage), "Add message is not displayed");
+        }
+
+        protected override void Login()
+        {
+            LoginPage.Instance.InsertLoginDetails("Admin", "Admin!23");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace UnixFor.Tests
     {
         private IWebDriver driver;
         LoginPage loginObj = new LoginPage();
-       
+
         [OneTimeSetUp]
         public void TestInit()
         {
@@ -24,25 +24,25 @@ namespace UnixFor.Tests
         [TestCase("", "123"), Order(1)]
         [TestCase("123", "")]
         [TestCase("", "")]
-        public void TestLoginEmptyFieldScenario(string n, string p)
+        public void TestLoginEmptyFieldScenario(string UserName, string password)
         {
-            loginObj.CheckLoginEmptyFieldScenarios(n, p);
+            loginObj.CheckLoginEmptyFieldScenarios(UserName, password);
         }
-       
+
         //**************Test 2 to test invalid credentials scenarios***************
         [TestCase("wrong", "Admin!23"), Order(2)]
         [TestCase("wrong", "wrong")]
         [TestCase("admin", "wrong")]
-        public void TestLoginInvalidValuesScenario(string n, string p)
+        public void TestLoginInvalidValuesScenario(string UserName, string password)
         {
-            loginObj.CheckLoginInvalidFieldScenarios(n, p);
+            loginObj.CheckLoginInvalidFieldScenarios(UserName, password);
         }
-        
-        //******************Test 3 to test valid login scenarios*******************
+
+        //******************Test 3 to test valid login scenario*******************
         [TestCase("Admin", "Admin!23"), Order(3)]
-        public void TestValidLogin(string n, string p)
+        public void TestValidLogin(string UserName, string password)
         {
-            loginObj.CheckValidLoginFieldScenarios(n, p);
+            loginObj.CheckValidLoginFieldScenarios(UserName, password);
             loginObj.SetDriver(driver);
         }
     }

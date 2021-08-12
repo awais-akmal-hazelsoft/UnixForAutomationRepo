@@ -17,5 +17,6 @@ namespace UnixFor.Helper
         public const string FilterContainValue = "CONTAINS";
         public const string FilterNotContainValue = "NOTCONTAINS";
         public const string NameColumnHeadingtext = "Name";
+        public const string CodeColumnHeadingtext = "Code";
     }
 }

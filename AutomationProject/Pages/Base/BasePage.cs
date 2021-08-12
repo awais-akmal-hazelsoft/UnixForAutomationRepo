@@ -15,7 +15,7 @@ using System.Text.RegularExpressions;
 
 namespace UnixFor.Pages.Base
 {
-    public class BasePage
+    public abstract class BasePage
     {
         protected static IWebDriver driver;
         //button elements
@@ -24,6 +24,8 @@ namespace UnixFor.Pages.Base
         protected By updateBtn = By.CssSelector("div.form__form-group>button");
         protected By adminBtn = By.XPath("//a[text()='Admin']");
         protected By logoutBtn = By.XPath("//button[span[text()='Logout']]");
+        protected By filterBtn = By.XPath("//button[./span[text()='Filter']]");
+        protected By applyFilterBtn = By.XPath("//button[text()='Apply Filter']");
         //Dropdown elements
         protected By paginationSizingDropdown = By.XPath("//select[@id='exampleSelect']");
         protected By paginationSizingDropdownItem = By.XPath("//select[@id='exampleSelect' ]//option[@Value='50']");
@@ -33,11 +35,9 @@ namespace UnixFor.Pages.Base
         protected By loadingSpinner = By.CssSelector("div.spinner");
         protected By paginationInfoList = By.XPath("//*[@id='root']/div[2]/div/main/div/div[2]/div/div[5]/div/div/div[1]/div[1]/nav/ul/div/li[text()='Showing']");
         protected By tableHead = By.XPath("//table/thead/tr");
-        private By filterBtn = By.XPath("//button[./span[text()='Filter']]");
-        private By applyFilterBtn = By.XPath("//button[text()='Apply Filter']");
-        private By filterNameDropdown = By.Name("field0");
-        private By filterTypeDropdown = By.Name("type0");
-        private By filterValueDropDown = By.Name("value0");
+        protected By filterNameDropdown = By.Name("field0");
+        protected By filterTypeDropdown = By.Name("type0");
+        protected By filterValueDropDown = By.Name("value0");
         //property to get dashboard heading 
         public By dashboardHeading
         {
@@ -119,8 +119,7 @@ namespace UnixFor.Pages.Base
         //methos to check Ascending Order Sorting
         public void CheckAscendingSorting(string columnName)
         {
-            List<IWebElement> beforeSortingList = GetColumnWebElements(columnName);
-            List<string> beforeSortingValues = GetColumnText(beforeSortingList);
+            List<string> beforeSortingValues = GetColumnTextFromAllPages(Constants.NameColumnHeadingtext);
             beforeSortingValues.Sort();
             driver.Navigate().Refresh();
             WaitUntilInvisible(loadingSpinner);
@@ -128,8 +127,8 @@ namespace UnixFor.Pages.Base
             GetElement(svgBtn).Click();
             WaitUntilInvisible(loadingSpinner);
             Assert.IsTrue(IsElementVisible(decendingOrderSvg), "Ascending Order svg is not displayed");
-            List<IWebElement> afterSortingList = GetColumnWebElements(columnName);
-            List<string> afterSortingValues = GetColumnText(afterSortingList);
+            List<string> afterSortingValues = GetColumnTextFromAllPages(Constants.NameColumnHeadingtext);
+
             for (int j = 0; j < beforeSortingValues.Count; j++)
             {
                 Assert.IsTrue(beforeSortingValues[j] == afterSortingValues[j], "Ascending Sorting Failed");
@@ -145,11 +144,56 @@ namespace UnixFor.Pages.Base
             }
             return columnTextlist;
         }
+        public List<string> GetColumnTextFromAllPages(string columnName)
+        {
+            //paginationInfoNumbers[0] is starting Number of row in current page
+            //paginationInfoNumbers[1] is Ending row in current page
+            //paginationInfoNumbers[2] is total Number of rows in table
+
+            int columnNumber = GetColumnNumber(columnName);
+            int[] paginationInfoNumbers = { 0, 0, 0 };
+            int startingRowNumber = 0;
+            int EndingRowNumber = 0;
+            int totalRows = 0;
+            List<string> columnTextList = new List<string>();
+            WaitUntilInvisible(loadingSpinner);
+            if (!IsElementVisible(By.XPath("//table/tbody/tr")))
+            {
+                List<string> li = null;
+                return li;
+
+            }
+            do
+            {
+                FilterNumbers(ref paginationInfoNumbers);
+                startingRowNumber = paginationInfoNumbers[0];
+                EndingRowNumber = paginationInfoNumbers[1];
+                totalRows = paginationInfoNumbers[2];
+                for (int i = 1; i <= EndingRowNumber - (startingRowNumber - 1); i++)
+                {
+                    if (columnNumber > 2)
+                    {
+                        columnTextList.Add(GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[" + columnNumber + "]")).Text);
+                    }
+                    else
+                    {
+                        List<string> li = null;
+                        return li;
+                    }
+                }
+                if (EndingRowNumber < totalRows)
+                {
+                    Assert.IsTrue(IsElementVisible(paginationNextBtn), "Pagination button is not visible");
+                    GetElement(paginationNextBtn).Click();
+                    WaitUntilInvisible(loadingSpinner);
+                }
+            } while (EndingRowNumber < totalRows);
+            return columnTextList;
+        }
         //methos to check Descending Order sorting
         public void CheckDescendingSorting(string columnName)
         {
-            List<IWebElement> beforeSortingList = GetColumnWebElements(columnName);
-            List<string> beforeSortingValues = GetColumnText(beforeSortingList);
+            List<string> beforeSortingValues = GetColumnTextFromAllPages(Constants.NameColumnHeadingtext);
             beforeSortingValues.Sort();
             beforeSortingValues.Reverse();
             driver.Navigate().Refresh();
@@ -160,8 +204,7 @@ namespace UnixFor.Pages.Base
             svgAction.DoubleClick(GetElement(svgBtn)).Perform();
             WaitUntilInvisible(loadingSpinner);
             Assert.IsTrue(IsElementVisible(decendingOrderSvg), "Ascending Order svg is not displayed");
-            List<IWebElement> afterSortingList = GetColumnWebElements(columnName);
-            List<string> afterSortingValues = GetColumnText(afterSortingList);
+            List<string> afterSortingValues = GetColumnTextFromAllPages(Constants.NameColumnHeadingtext);
             for (int j = 0; j < beforeSortingValues.Count; j++)
             {
                 Assert.IsTrue(beforeSortingValues[j] == afterSortingValues[j], "Ascending Sorting Failed");
@@ -173,9 +216,6 @@ namespace UnixFor.Pages.Base
             //paginationInfoNumbers[0] is starting Number of row in current page
             //paginationInfoNumbers[1] is Ending row in current page
             //paginationInfoNumbers[2] is total Number of rows in table
-
-
-
             int columnNumber = GetColumnNumber(columnName);
             int[] paginationInfoNumbers = { 0, 0, 0 };
             int startingRowNumber = 0;
@@ -214,53 +254,10 @@ namespace UnixFor.Pages.Base
             } while (EndingRowNumber < totalRows);
             return column;
         }
-        public void GetColumnWebElementsSinglePage(string columnName, out List<IWebElement> listWebElements, out List<string> listText)
-        {
-            //paginationInfoNumbers[0] is starting Number of row in current page
-            //paginationInfoNumbers[1] is Ending row in current page
-            //paginationInfoNumbers[2] is total Number of rows in table
-            int columnNumber = GetColumnNumber(columnName);
-            int[] paginationInfoNumbers = { 0, 0, 0 };
-            int startingRowNumber = 0;
-            int EndingRowNumber = 0;
-            int totalRows = 0;
-            listWebElements = null;
-            listText = null;
-            Assert.IsTrue(IsElementVisible(By.XPath("//table/tbody/tr")), "Table Element is Not displayed");
-            do
-            {
-                FilterNumbers(ref paginationInfoNumbers);
-                startingRowNumber = paginationInfoNumbers[0];
-                EndingRowNumber = paginationInfoNumbers[1];
-                totalRows = paginationInfoNumbers[2];
-                for (int i = 1; i <= EndingRowNumber - (startingRowNumber - 1); i++)
-                {
-                    //Assert.IsTrue(IsElementVisible(By.XPath("//div/table/tbody/tr[" + i + "]/td[" + colNumber + "]")), "//div/table/tbody/tr[" + i + "]/td[" + colNumber + "] is not displayed");
-                    if (GetColumnNumber(columnName) == 1)
-                    {
-                        listWebElements.Add(GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[" + columnNumber + "]/input")));
-                    }
-                    else if (GetColumnNumber(columnName) == 2)
-                    {
-                        listWebElements.Add(GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[" + columnNumber + "]/div/button")));
-                    }
-                    else
-                    {
-                        listWebElements.Add(GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[" + columnNumber + "]")));
-                        listText.Add(listWebElements[i].Text);
-                    }
-                }
-                if (EndingRowNumber < totalRows)
-                {
-                    Assert.IsTrue(IsElementVisible(paginationNextBtn), "Pagination button is not visible");
-                    GetElement(paginationNextBtn).Click();
-                    WaitUntilInvisible(loadingSpinner);
-                }
-            } while (EndingRowNumber < totalRows);
-        }
         //method to filter numbers from pagination info list string 
         public void FilterNumbers(ref int[] num)
         {
+            WaitUntilInvisible(loadingSpinner);
             Assert.IsTrue(IsElementVisible(paginationInfoList), "Pagination info list is not displayed");
             string str = GetElementText(paginationInfoList);
             int k = 0;
@@ -320,8 +317,10 @@ namespace UnixFor.Pages.Base
             Assert.IsTrue(IsElementVisible(adminBtn), "Admin button is not displayed");
             GetElement(adminBtn).Click();
             GetElement(logoutBtn).Click();
+
             // Login
-            LoginPage.Instance.InsertLoginDetails("Admin", "Admin!23");
+            Login();
+
             Assert.IsTrue(IsElementVisible(dashboardHeading), "Dashboard Heading is not displayed");
             Assert.AreEqual(GetElementText(dashboardHeading), "Dashboard", "Dashboard Text is not displayed as heading");
             Console.WriteLine("Login Successful");
@@ -331,55 +330,9 @@ namespace UnixFor.Pages.Base
             Assert.IsFalse(textBefore == textAfter, "Drag & drop column is not successful");
         }
 
-        //method to get the rows of all page
-        public List<IWebElement> GetRows()
-        {
-            //List<IWebElement> rows = new List<IWebElement>();
-            //Assert.IsTrue(IsElementVisible(By.XPath("//table")), "Table Element is Not displayed");
-            //IWebElement singleRow = null;
-            //for (int i = 0; i < 10; i++)
-            //{
-            //}
-            //ReadOnlyCollection<IWebElement> readOnlyRowsCollectionList = new ReadOnlyCollection<IWebElement>(rows);
-            ////return readOnlyRowsCollectionList;
-            //paginationInfoNumbers[0] is starting Number of row in current page
-            //paginationInfoNumbers[1] is Ending row in current page
-            //paginationInfoNumbers[2] is total Number of rows in table
-            int[] paginationInfoNumbers = { 0, 0, 0 };
-            int startingRowNumber = 0;
-            int EndingRowNumber = 0;
-            int totalRows = 0;
-            List<IWebElement> rows = new List<IWebElement>();
-            Assert.IsTrue(IsElementVisible(By.XPath("//table/tbody/tr")), "Table Element is Not displayed");
-            do
-            {
-                FilterNumbers(ref paginationInfoNumbers);
-                startingRowNumber = paginationInfoNumbers[0];
-                EndingRowNumber = paginationInfoNumbers[1];
-                totalRows = paginationInfoNumbers[2];
-                for (int i = 1; i <= EndingRowNumber - (startingRowNumber - 1); i++)
-                {
-                    Assert.IsTrue(IsElementVisible(By.XPath("//div/table/tbody/tr[" + i + "]")), "Element tr[" + i + "] is Not Displayed on screen");
-                    rows.Add(GetElement(By.XPath("//div/table/tbody/tr[" + i + "]")));
-                }
-                if (EndingRowNumber < totalRows)
-                {
-                    Assert.IsTrue(IsElementVisible(paginationNextBtn), "Pagination button is not visible");
-                    GetElement(paginationNextBtn).Click();
-                    WaitUntilInvisible(loadingSpinner);
-                }
-            } while (EndingRowNumber < totalRows);
-            return rows;
-        }
-        public void SetFilterFormValues(string filterName)
-        {
-            Assert.IsTrue(IsElementVisible(filterBtn), "Filter button is not displayed");
-            GetElement(filterBtn).Click();
-            Assert.IsTrue(IsElementVisible(filterNameDropdown), "Filter Name dropdown is nnot displayed");
-            GetElement(filterNameDropdown).Click();
-            GetElement(By.XPath("//select[@name='field0']/option[@value='" + filterName + "']")).Click();
-            GetElement(filterValueDropDown).Click();
-        }
+        protected abstract void Login();
+
+        //method to active a deleted record
         public void ActiveRecord(string filterName, string filterValue, string nameKey)
         {
             bool isNameMatched = false;
@@ -425,6 +378,7 @@ namespace UnixFor.Pages.Base
             WaitUntilInvisible(loadingSpinner);
             Assert.IsTrue(IsElementVisible(toastMessage), "Verify toast message is not displayed");
         }
+        //method to get column number of a column in table
         public int GetColumnNumber(string columnName)
         {
             int i = 0;
@@ -453,6 +407,7 @@ namespace UnixFor.Pages.Base
             }
             return -1;
         }
+        //method to check filter testcase
         public void CheckFilter(string filterName, string filterValue, string searchText)
         {
             WaitUntilInvisible(loadingSpinner);
@@ -466,53 +421,70 @@ namespace UnixFor.Pages.Base
             GetElement(By.Id("value0")).SendKeys(searchText);
             GetElement(applyFilterBtn).Click();
             WaitUntilInvisible(loadingSpinner);
-            List<IWebElement> columnElementslist= GetColumnWebElements(Constants.NameColumnHeadingtext );
-            List<string> columnTextlist = GetColumnText(columnElementslist);
-
+            List<string> columnTextlist = GetColumnTextFromAllPages(Constants.NameColumnHeadingtext);
             switch (filterValue)
             {
+                //filter case when selected value is Equal
                 case Constants.FilterEqualValue:
                     CheckFilterWithEqualValue(columnTextlist, searchText);
                     break;
+                //filter case when selected value is Not Equal
                 case Constants.FilterNotEqualValue:
                     CheckFilterWithNotEqualValue(columnTextlist, searchText);
                     break;
+                //filter case when selected value is Contains
                 case Constants.FilterContainValue:
                     CheckFilterWithContainValue(columnTextlist, searchText);
                     break;
+                //filter case when selected value is Not Contains
                 case Constants.FilterNotContainValue:
                     CheckFilterWithNotContainValue(columnTextlist, searchText);
                     break;
 
             }
         }
-        public static void CheckFilterWithContainValue(List<string> list, string containKey)
+        //method to check filter with contains value
+        public void CheckFilterWithContainValue(List<string> list, string containKey)
         {
-            for (int i = 0; i < list.Count; i++)
+            if (list != null)
             {
-                //Assert.IsTrue(list[0].Contains(containKey, StringComparison.OrdinalIgnoreCase) == 0);
-                Assert.IsTrue(Regex.IsMatch(list[0], Regex.Escape(containKey), RegexOptions.IgnoreCase));
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Assert.IsTrue(Regex.IsMatch(list[0], Regex.Escape(containKey), RegexOptions.IgnoreCase));
+                }
             }
         }
-        public static void CheckFilterWithNotContainValue(List<string> list, string containKey)
+        //method to check filter with not contains value
+        public void CheckFilterWithNotContainValue(List<string> list, string containKey)
         {
-            for (int i = 0; i < list.Count; i++)
+            if (list != null)
             {
-                Assert.IsTrue(!list[0].Contains(containKey));
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Assert.IsTrue(!Regex.IsMatch(list[0], Regex.Escape(containKey), RegexOptions.IgnoreCase));
+                }
             }
         }
-        public static void CheckFilterWithEqualValue(List<string> list, string containKey)
+        //method to check filter with equal value
+        public void CheckFilterWithEqualValue(List<string> list, string containKey)
         {
-            for (int i = 0; i < list.Count; i++)
+            if (list != null)
             {
-                Assert.IsTrue(list[0] == containKey);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Assert.IsTrue(list[0] == containKey);
+                }
             }
         }
-        public static void CheckFilterWithNotEqualValue(List<string> list, string containKey)
+        //method to check filter with not equal value
+        public void CheckFilterWithNotEqualValue(List<string> list, string containKey)
         {
-            for (int i = 0; i < list.Count; i++)
+            if (list != null)
             {
-                Assert.IsTrue(list[0] != containKey);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Assert.IsTrue(list[0] != containKey);
+                }
             }
         }
 
