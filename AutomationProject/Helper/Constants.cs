@@ -12,5 +12,10 @@ namespace UnixFor.Helper
         public const string ExpectedUsernameInvalidToastMessage = "Username is incorrect.";
         public const string ExpectedPasswordInvalidToastMessage = "Password is incorrect.";
         public const string ExpectingShowingMessageForNonActive = "Showing Results for: Active \"No\"";
+        public const string FilterEqualValue = "EQUALS";
+        public const string FilterNotEqualValue = "NOTEQUALS";
+        public const string FilterContainValue = "CONTAINS";
+        public const string FilterNotContainValue = "NOTCONTAINS";
+        public const string NameColumnHeadingtext = "Name";
     }
 }

@@ -48,9 +48,9 @@ namespace UnixFor.Pages.HardwareConfiguration
         //method to check column sorting 
         public void CheckSorting()
         {
-            CheckDescendingSorting(3);
+            CheckDescendingSorting("Name");
             driver.Navigate().Refresh();
-            CheckAscendingSorting(3);
+            CheckAscendingSorting("Name");
         }
 
         //method to select column in change view modal

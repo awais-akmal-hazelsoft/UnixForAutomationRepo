@@ -3,6 +3,7 @@ using NUnit.Framework;
 using UnixFor.Pages.HardwareConfiguration;
 using OpenQA.Selenium;
 using UnixFor.Pages.Base;
+using UnixFor.Helper;
 
 namespace UnixFor.Tests
 {
@@ -76,7 +77,7 @@ namespace UnixFor.Tests
         [Test, Order(12)]
         public void TestActiveDeleteRows()
         {
-            peripheralTypesObj.ActiveRecord("isActive", "false", "");
+            peripheralTypesObj.CheckFilter("name", Constants.FilterNotContainValue, "test");
         }
 
     }
