@@ -13,7 +13,7 @@ using UnixFor.Helper;
 
 namespace UnixFor.Pages.HardwareConfiguration
 {
-    class PeripheralTypesPage : BasePage
+    class PeripheralTypesPage
     {
         //button elements
         private By confirmDeleteOkBtn = By.CssSelector("div>button.modal_ok");
@@ -49,9 +49,9 @@ namespace UnixFor.Pages.HardwareConfiguration
         //method to check column sorting 
         public void CheckSorting()
         {
-            CheckDescendingSorting(Constants.NameColumnHeadingtext);
-            driver.Navigate().Refresh();
-            CheckAscendingSorting(Constants.NameColumnHeadingtext);
+            CommonFunctions.CheckDescendingSorting(Constants.NameColumnHeadingtext);
+            CommonFunctions.driver.Navigate().Refresh();
+            CommonFunctions.CheckAscendingSorting(Constants.NameColumnHeadingtext);
         }
 
         //method to select column in change view modal
@@ -62,9 +62,9 @@ namespace UnixFor.Pages.HardwareConfiguration
             for (int i = 0; i < 2; i++)
             {
                 checkboxInChangeViewModal = By.XPath("//div[@class='dragHandle-setting'][" + (i + 1) + "]/input");
-                if (GetElement(checkboxInChangeViewModal).Selected)
+                if (CommonFunctions.GetElement(checkboxInChangeViewModal).Selected)
                 {
-                    GetElement(checkboxInChangeViewModal).Click();
+                    CommonFunctions.GetElement(checkboxInChangeViewModal).Click();
                 }
             }
             for (int i = 0; i < 2; i++)
@@ -73,9 +73,9 @@ namespace UnixFor.Pages.HardwareConfiguration
                 columnNameInChangeViewModal = By.XPath("//div[@class='dragHandle-setting'][" + (i + 1) + " ]/span");
                 for (int j = 0; j < arrayColumnName.Length; j++)
                 {
-                    if (arrayColumnName[j] == GetElementText(columnNameInChangeViewModal))
+                    if (arrayColumnName[j] == CommonFunctions.GetElementText(columnNameInChangeViewModal))
                     {
-                        GetElement(checkboxInChangeViewModal).Click();
+                        CommonFunctions.GetElement(checkboxInChangeViewModal).Click();
                     }
                 }
             }
@@ -83,12 +83,12 @@ namespace UnixFor.Pages.HardwareConfiguration
         //method to check column visibilty
         public void CheckColumnVisibility(string[] columnNames)
         {
-            GetElement(actionsDropdown).Click();
-            GetElement(changeViewInDropdown).Click();
-            Assert.IsTrue(IsElementVisible(modal), "Change View Modal is not displayed");
+            CommonFunctions.GetElement(actionsDropdown).Click();
+            CommonFunctions.GetElement(changeViewInDropdown).Click();
+            Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.modal), "Change View Modal is not displayed");
             int totalColumns = 4;
             SelectColumnInChangeViewModal(columnNames);
-            IWebElement submitBtn = GetElement(By.CssSelector("button.Full_Width"));
+            IWebElement submitBtn = CommonFunctions.GetElement(By.CssSelector("button.Full_Width"));
             submitBtn.Click();
             int countVisible = 0;
             for (int i = 2; i < columnNames.Length + 2; i++)
@@ -109,14 +109,14 @@ namespace UnixFor.Pages.HardwareConfiguration
             int totalRows = 0;
             do
             {
-                FilterNumbers(ref paginationInfoNumbers);
+                CommonFunctions.FilterNumbers(ref paginationInfoNumbers);
                 visibleRows = paginationInfoNumbers[1];
                 totalRows = paginationInfoNumbers[2];
                 if (visibleRows < totalRows)
                 {
-                    Assert.IsTrue(IsElementVisible(paginationNextBtn), "Pagination button is not visible");
-                    driver.FindElement(paginationNextBtn).Click();
-                    WaitUntilInvisible(loadingSpinner);
+                    Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.paginationNextBtn), "Pagination button is not visible");
+                    CommonFunctions.driver.FindElement(CommonFunctions.paginationNextBtn).Click();
+                    CommonFunctions.WaitUntilInvisible(CommonFunctions.loadingSpinner);
                 }
 
             } while (visibleRows < totalRows);
@@ -124,12 +124,12 @@ namespace UnixFor.Pages.HardwareConfiguration
         //method to check pagination by changing page size and selecting page size 
         public void CheckPaginationByChangingPageSize()
         {
-            WaitUntilInvisible(loadingSpinner);
-            Assert.IsTrue(IsElementVisible(paginationSizingDropdown), "Dropdown for page sizing is not displayed");
-            GetElement(paginationSizingDropdown).Click();
-            WaitUntilInvisible(loadingSpinner);
-            Assert.IsTrue(IsElementVisible(paginationSizingDropdownItem), "Show 50 option is not displayed");
-            GetElement(paginationSizingDropdownItem).Click();
+            CommonFunctions.WaitUntilInvisible(CommonFunctions.loadingSpinner);
+            Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.paginationSizingDropdown), "Dropdown for page sizing is not displayed");
+            CommonFunctions.GetElement(CommonFunctions.paginationSizingDropdown).Click();
+            CommonFunctions.WaitUntilInvisible(CommonFunctions.loadingSpinner);
+            Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.paginationSizingDropdownItem), "Show 50 option is not displayed");
+            CommonFunctions.GetElement(CommonFunctions.paginationSizingDropdownItem).Click();
             CheckPaginationByChangingPage();
         }
         //method to update a record
@@ -139,51 +139,51 @@ namespace UnixFor.Pages.HardwareConfiguration
             IWebElement name = null;
             IWebElement code = null;
             string testBtnEdit = "";
-            WaitUntilInvisible(loadingSpinner);
+            CommonFunctions.WaitUntilInvisible(CommonFunctions.loadingSpinner);
             for (int i = 1; i <= 10; i++)
             {
                 testBtnEdit = "//div/table/tbody/tr[" + i + "]/td[2]/div/button";
-                btnEdit = GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[2]/div/button"));
-                name = GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[3]/span/span"));
-                code = GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[4]/span/span"));
+                btnEdit = CommonFunctions.GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[2]/div/button"));
+                name = CommonFunctions.GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[3]/span/span"));
+                code = CommonFunctions.GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[4]/span/span"));
                 if (name.Text == nameKey)
                 {
-                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].innerText=''", name);
-                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].innerText=''", code);
+                    ((IJavaScriptExecutor)CommonFunctions.driver).ExecuteScript("arguments[0].innerText=''", name);
+                    ((IJavaScriptExecutor)CommonFunctions.driver).ExecuteScript("arguments[0].innerText=''", code);
                     btnEdit.Click();
                     break;
                 }
             }
-            Assert.IsTrue(IsElementVisible(modal), "Update Modal is not displayed");
-            GetElement(textFieldName).Clear();
-            GetElement(textFieldCode).Clear();
-            GetElement(textFieldName).SendKeys(updatedName);
-            GetElement(textFieldCode).SendKeys(updatedCode);
-            GetElement(updateBtn).Click();
-            Assert.IsTrue(IsElementVisible(toastMessage), "Updated message is not displayed");
+            Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.modal), "Update Modal is not displayed");
+            CommonFunctions.GetElement(textFieldName).Clear();
+            CommonFunctions.GetElement(textFieldCode).Clear();
+            CommonFunctions.GetElement(textFieldName).SendKeys(updatedName);
+            CommonFunctions.GetElement(textFieldCode).SendKeys(updatedCode);
+            CommonFunctions.GetElement(CommonFunctions.updateBtn).Click();
+            Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.toastMessage), "Updated message is not displayed");
         }
         //method to delete record(s)
         public void DeleteInPeripheralTypes(string[] arrayName)
         {
             selectCheckboxesToDelete(arrayName);
-            Assert.IsTrue(IsElementVisible(actionsDropdown), "Dropdown is not displayed on Peripheral Types screen");
-            GetElement(actionsDropdown).Click();
-            Assert.IsTrue(IsElementVisible(deleteBtnInDropdown), "Delete in dropdown is not displayed on Peripheral types screen");
-            GetElement(deleteBtnInDropdown).Click();
-            Assert.IsTrue(IsElementVisible(confirmDeleteOkBtn), "Ok button to confirm delete operation is not displayed on peripheral Types Screen");
-            GetElement(confirmDeleteOkBtn).Click();
-            Assert.IsTrue(IsElementVisible(toastMessage), "Delete message is not displayed");
+            Assert.IsTrue(CommonFunctions.IsElementVisible(actionsDropdown), "Dropdown is not displayed on Peripheral Types screen");
+            CommonFunctions.GetElement(actionsDropdown).Click();
+            Assert.IsTrue(CommonFunctions.IsElementVisible(deleteBtnInDropdown), "Delete in dropdown is not displayed on Peripheral types screen");
+            CommonFunctions.GetElement(deleteBtnInDropdown).Click();
+            Assert.IsTrue(CommonFunctions.IsElementVisible(confirmDeleteOkBtn), "Ok button to confirm delete operation is not displayed on peripheral Types Screen");
+            CommonFunctions.GetElement(confirmDeleteOkBtn).Click();
+            Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.toastMessage), "Delete message is not displayed");
         }
         //method to select checkbox of those records which we want to delete
         public void selectCheckboxesToDelete(string[] arr)
         {
             IWebElement inputCheckBox;
             IWebElement name;
-            WaitUntilInvisible(loadingSpinner);
+            CommonFunctions.WaitUntilInvisible(CommonFunctions.loadingSpinner);
             for (int i = 1; i <= 10; i++)
             {
-                inputCheckBox = GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[1]/input"));
-                name = GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[3]/span/span"));
+                inputCheckBox = CommonFunctions.GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[1]/input"));
+                name = CommonFunctions.GetElement(By.XPath("//div/table/tbody/tr[" + i + "]/td[3]/span/span"));
                 for (int j = 0; j < arr.Length; j++)
                 {
                     if (name.Text == arr[j])
@@ -196,19 +196,14 @@ namespace UnixFor.Pages.HardwareConfiguration
         //method to add records
         public void AddInPeripheralTypesPage(string nameFieldText, string codeFielText)
         {
-            Assert.IsTrue(IsElementVisible(addBtn), "Add Button is not displyed on peripheral types page");
-            GetElement(addBtn).Click();
-            Assert.IsTrue(IsElementVisible(modal), "Add modal is not dislayed");
-            GetElement(textFieldName).SendKeys(nameFieldText);
-            GetElement(textFieldCode).SendKeys(codeFielText);
-            Assert.IsTrue(IsElementVisible(updateBtn), "Update button in Add Modal");
-            GetElement(updateBtn).Click();
-            Assert.IsTrue(IsElementVisible(toastMessage), "Add message is not displayed");
-        }
-
-        protected override void Login()
-        {
-            LoginPage.Instance.InsertLoginDetails("Admin", "Admin!23");
+            Assert.IsTrue(CommonFunctions.IsElementVisible(addBtn), "Add Button is not displyed on peripheral types page");
+            CommonFunctions.GetElement(addBtn).Click();
+            Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.modal), "Add modal is not dislayed");
+            CommonFunctions.GetElement(textFieldName).SendKeys(nameFieldText);
+            CommonFunctions.GetElement(textFieldCode).SendKeys(codeFielText);
+            Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.updateBtn), "Update button in Add Modal");
+            CommonFunctions.GetElement(CommonFunctions.updateBtn).Click();
+            Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.toastMessage), "Add message is not displayed");
         }
     }
 }

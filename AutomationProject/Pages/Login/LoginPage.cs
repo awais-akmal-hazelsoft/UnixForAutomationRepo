@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace UnixFor.Pages.Login
 {
-    public class LoginPage : BasePage
+    public class LoginPage
     {
         public static LoginPage Instance = new LoginPage();
         //button elements
@@ -25,16 +25,21 @@ namespace UnixFor.Pages.Login
         private readonly By userNameRequiredMessage = By.CssSelector("#userName+div");
         private readonly By passwordRequiredMessage = By.CssSelector("#password+div");
 
+        public void InsertLoginDetails()
+        {
+            InsertLoginDetails("Admin", "Admin!23");
+        }
+
         //Function to insert login credentials into text fields       
         public void InsertLoginDetails(String name, String pwd)
         {
-            IWebElement username = GetElement(UserNameField);
+            IWebElement username = CommonFunctions.GetElement(UserNameField);
             username.Clear();
             username.SendKeys(name);
-            IWebElement password = GetElement(PasswordField);
+            IWebElement password = CommonFunctions.GetElement(PasswordField);
             password.Clear();
             password.SendKeys(pwd);
-            IWebElement btnLogin = GetElement(LoginBtn);
+            IWebElement btnLogin = CommonFunctions.GetElement(LoginBtn);
             btnLogin.Click();
         }
 
@@ -44,22 +49,22 @@ namespace UnixFor.Pages.Login
             InsertLoginDetails(n, p);
             if (n == "" && p == "")
             {
-                Assert.IsTrue(IsElementVisible(userNameRequiredMessage), "Field is required message is not displayed");
-                Assert.AreEqual(Constants.ExpectedEmptyFieldValidation, GetElementText(userNameRequiredMessage), "Message Field is required is not displayed correctly");
-                Assert.IsTrue(IsElementVisible(passwordRequiredMessage), "Field is required message is not displayed");
-                Assert.AreEqual(Constants.ExpectedEmptyFieldValidation, GetElementText(passwordRequiredMessage), "Message Field is required is not displayed correctly");
+                Assert.IsTrue(CommonFunctions.IsElementVisible(userNameRequiredMessage), "Field is required message is not displayed");
+                Assert.AreEqual(Constants.ExpectedEmptyFieldValidation, CommonFunctions.GetElementText(userNameRequiredMessage), "Message Field is required is not displayed correctly");
+                Assert.IsTrue(CommonFunctions.IsElementVisible(passwordRequiredMessage), "Field is required message is not displayed");
+                Assert.AreEqual(Constants.ExpectedEmptyFieldValidation, CommonFunctions.GetElementText(passwordRequiredMessage), "Message Field is required is not displayed correctly");
             }
             else if (n == "" && p != "")
             {
-                Assert.IsTrue(IsElementVisible(userNameRequiredMessage), "Field is required message is not displayed");
-                Assert.AreEqual(Constants.ExpectedEmptyFieldValidation, GetElementText(userNameRequiredMessage), "Message Field is required is not displayed correctly");
-                Assert.IsFalse(IsElementVisible(passwordRequiredMessage), "Field is required message is displayed");
+                Assert.IsTrue(CommonFunctions.IsElementVisible(userNameRequiredMessage), "Field is required message is not displayed");
+                Assert.AreEqual(Constants.ExpectedEmptyFieldValidation, CommonFunctions.GetElementText(userNameRequiredMessage), "Message Field is required is not displayed correctly");
+                Assert.IsFalse(CommonFunctions.IsElementVisible(passwordRequiredMessage), "Field is required message is displayed");
             }
             else if (n != "" && p == "")
             {
-                Assert.IsTrue(IsElementVisible(passwordRequiredMessage), "Field is required message is not displayed");
-                Assert.AreEqual(Constants.ExpectedEmptyFieldValidation, GetElementText(passwordRequiredMessage), "Message Field is required is not displayed correctly");
-                Assert.IsFalse(IsElementVisible(userNameRequiredMessage), "Field is required message is displayed");
+                Assert.IsTrue(CommonFunctions.IsElementVisible(passwordRequiredMessage), "Field is required message is not displayed");
+                Assert.AreEqual(Constants.ExpectedEmptyFieldValidation, CommonFunctions.GetElementText(passwordRequiredMessage), "Message Field is required is not displayed correctly");
+                Assert.IsFalse(CommonFunctions.IsElementVisible(userNameRequiredMessage), "Field is required message is displayed");
             }
         }
 
@@ -70,24 +75,24 @@ namespace UnixFor.Pages.Login
 
             if (n == "wrong" && p != "wrong")
             {
-                Assert.IsTrue(IsElementVisible(toastMessage), "Error toast is not displayed");
-                Assert.AreEqual(Constants.ExpectedUsernameInvalidToastMessage, GetElementText(toastMessage), "username is incorrect message is not displayed");
+                Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.toastMessage), "Error toast is not displayed");
+                Assert.AreEqual(Constants.ExpectedUsernameInvalidToastMessage, CommonFunctions.GetElementText(CommonFunctions.toastMessage), "username is incorrect message is not displayed");
                 //Thread.Sleep(6000);
-                WaitUntilInvisible(toastMessage);
+                CommonFunctions.WaitUntilInvisible(CommonFunctions.toastMessage);
             }
             else if (n == "wrong" && p == "wrong")
             {
-                Assert.IsTrue(IsElementVisible(toastMessage), "Error toast is not displayed");
-                Assert.AreEqual(Constants.ExpectedUsernameInvalidToastMessage, GetElementText(toastMessage), "username is incorrect message is not displayed");
+                Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.toastMessage), "Error toast is not displayed");
+                Assert.AreEqual(Constants.ExpectedUsernameInvalidToastMessage, CommonFunctions.GetElementText(CommonFunctions.toastMessage), "username is incorrect message is not displayed");
                 //Thread.Sleep(6000);
-                WaitUntilInvisible(toastMessage);
+                CommonFunctions.WaitUntilInvisible(CommonFunctions.toastMessage);
             }
             else if (n != "wrong" && p == "wrong")
             {
-                Assert.IsTrue(IsElementVisible(toastMessage), "Error toast is not displayed");
-                Assert.AreEqual(Constants.ExpectedPasswordInvalidToastMessage, GetElementText(toastMessage), "password is incorrect message is not displayed");
+                Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.toastMessage), "Error toast is not displayed");
+                Assert.AreEqual(Constants.ExpectedPasswordInvalidToastMessage, CommonFunctions.GetElementText(CommonFunctions.toastMessage), "password is incorrect message is not displayed");
                 //Thread.Sleep(6000);
-                WaitUntilInvisible(toastMessage);
+                CommonFunctions.WaitUntilInvisible(CommonFunctions.toastMessage);
             }
         }
 
@@ -95,13 +100,8 @@ namespace UnixFor.Pages.Login
         public void CheckValidLoginFieldScenarios(string n, string p)
         {
             InsertLoginDetails(n, p);
-            Assert.IsTrue(IsElementVisible(dashboardHeading), "Dashboard Heading is not displayed");
-            Assert.AreEqual(GetElementText(dashboardHeading), "Dashboard", "Dashboard Text is not displayed as heading");
-        }
-
-        protected override void Login()
-        {
-            //
+            Assert.IsTrue(CommonFunctions.IsElementVisible(CommonFunctions.dashboardHeading), "Dashboard Heading is not displayed");
+            Assert.AreEqual(CommonFunctions.GetElementText(CommonFunctions.dashboardHeading), "Dashboard", "Dashboard Text is not displayed as heading");
         }
     }
 }

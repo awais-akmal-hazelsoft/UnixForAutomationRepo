@@ -4,6 +4,10 @@ using UnixFor.Helper;
 using Assert = NUnit.Framework.Assert;
 using OpenQA.Selenium;
 using UnixFor.Pages.Base;
+using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Configuration.JsonConfig;
+using Jaeger.Thrift.Agent;
+using Paket;
 
 namespace UnixFor.Tests
 {
@@ -16,7 +20,7 @@ namespace UnixFor.Tests
         [OneTimeSetUp]
         public void TestInit()
         {
-            this.driver = loginObj.GetDriver();
+            this.driver = CommonFunctions.GetDriver();
             driver.Url = "http://unixfor.hazelsoft.net/";
         }
 
@@ -43,7 +47,6 @@ namespace UnixFor.Tests
         public void TestValidLogin(string UserName, string password)
         {
             loginObj.CheckValidLoginFieldScenarios(UserName, password);
-            loginObj.SetDriver(driver);
         }
     }
 }

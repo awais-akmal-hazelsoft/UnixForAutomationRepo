@@ -1,0 +1,6 @@
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\WebProjectAutomation\bin\Debug\WebProjectAutomation.dll
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\WebProjectAutomation\bin\Debug\WebProjectAutomation.pdb
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\WebProjectAutomation\obj\Debug\WebProjectAutomation.csproj.AssemblyReference.cache
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\WebProjectAutomation\obj\Debug\WebProjectAutomation.csproj.CoreCompileInputs.cache
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\WebProjectAutomation\obj\Debug\WebProjectAutomation.dll
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\WebProjectAutomation\obj\Debug\WebProjectAutomation.pdb
