@@ -23,6 +23,18 @@ namespace UnixFor.Tests
         }
 
         //********** Test 1 to test empty field login scenarios ***********
+        [TestCase("", "123"), Order(1)]
+        [TestCase("123", "")]
+        [TestCase("", "")]
+        public void TestLoginEmptyFieldScenario(string name, string password)
+        {
+            _loginPage.SetUsername(name);
+            _loginPage.SetPassword(password);
+
+            _loginPage.ClickLoginButton();
+
+            Assert.IsTrue(_loginPage.IsToastMessageVisible(), "Toast message is not displayed");
+        }
         //[TestCase("", "123"), Order(1)]
         //[TestCase("123", "")]
         //[TestCase("", "")]
@@ -38,11 +50,22 @@ namespace UnixFor.Tests
         public void TestLoginInvalidValuesScenario(string UserName, string password)
         {
             _loginPage.SetUsername(UserName);
-            _loginPage.SetPassoword(password);
+            _loginPage.SetPassword(password);
 
             _loginPage.ClickLoginButton();
 
             Assert.IsFalse(_dashboard.IsDashboardVisible(), "Dashboard Heading is not displayed");
+        }
+
+        [TestCase("admin", "Admin!23"), Order(2)]
+        public void TestLoginValidValuesScenario(string UserName, string password)
+        {
+            _loginPage.SetUsername(UserName);
+            _loginPage.SetPassword(password);
+
+            _loginPage.ClickLoginButton();
+
+            Assert.IsTrue(_dashboard.IsDashboardVisible(), "Dashboard Heading is not displayed");
         }
 
         //******************Test 3 to test valid login scenario*******************

@@ -8,6 +8,9 @@ namespace UnixFor.Helper
 {
     public class Constants
     {
+                   /******************************************************************************************
+                                                       Rejected Code
+                    ******************************************************************************************/
         public const string ExpectedEmptyFieldValidation = "This field is invalid";
         public const string ExpectedUsernameInvalidToastMessage = "Username is incorrect.";
         public const string ExpectedPasswordInvalidToastMessage = "Password is incorrect.";

@@ -17,6 +17,9 @@ namespace UnixFor.Pages.Base
 {
     public abstract class BasePage
     {
+               /******************************************************************************************
+                                               Rejected Code
+                ******************************************************************************************/
         protected static IWebDriver driver;
         //button elements
         protected By svgBtn = By.XPath("(//div[@title='Toggle SortBy'])[1]");

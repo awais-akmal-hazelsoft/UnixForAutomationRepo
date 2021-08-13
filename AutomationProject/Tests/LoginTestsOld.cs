@@ -7,6 +7,10 @@ using UnixFor.Pages.Base;
 
 namespace UnixFor.Tests
 {
+
+    /******************************************************************************************
+        Rejected Code
+    ******************************************************************************************/
     [TestFixture]
     public class LoginTests
     {
@@ -35,6 +39,8 @@ namespace UnixFor.Tests
         [TestCase("admin", "wrong")]
         public void TestLoginInvalidValuesScenario(string UserName, string password)
         {
+
+
             loginObj.CheckLoginInvalidFieldScenarios(UserName, password);
         }
 

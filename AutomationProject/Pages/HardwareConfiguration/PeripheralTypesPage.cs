@@ -13,6 +13,9 @@ using UnixFor.Helper;
 
 namespace UnixFor.Pages.HardwareConfiguration
 {
+         /******************************************************************************************
+                                             Rejected Code
+        ******************************************************************************************/
     class PeripheralTypesPage : BasePage
     {
         //button elements

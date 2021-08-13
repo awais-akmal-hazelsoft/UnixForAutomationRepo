@@ -13,6 +13,9 @@ using System.Threading;
 
 namespace UnixFor.Pages.Login
 {
+           /******************************************************************************************
+                                           Rejected Code
+            ******************************************************************************************/
     public class LoginPage : BasePage
     {
         public static LoginPage Instance = new LoginPage();

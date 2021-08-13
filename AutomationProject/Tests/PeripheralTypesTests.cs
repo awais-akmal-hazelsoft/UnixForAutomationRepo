@@ -7,6 +7,9 @@ using UnixFor.Helper;
 
 namespace UnixFor.Tests
 {
+    /******************************************************************************************
+    Rejected Code
+******************************************************************************************/
     [TestFixture]
     public class PeripheralTypesTests
     {
