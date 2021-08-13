@@ -65,16 +65,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factory\DashboardFactory.cs" />
+    <Compile Include="Factory\LoginPageFactory.cs" />
     <Compile Include="Helper\Constants.cs" />
+    <Compile Include="Helper\Singleton.cs" />
     <Compile Include="Pages\Base\BasePage.cs" />
     <Compile Include="Pages\HardwareConfiguration\PeripheralTypesPage.cs" />
     <Compile Include="Pages\Login\LoginPage.cs" />
+    <Compile Include="Tests\LoginTestsNew.cs" />
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\PeripheralTypesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Automation.WebApp\Automation.WebApp.csproj">
+      <Project>{d4ecfd65-e606-4007-920c-2fd6cae2e359}</Project>
+      <Name>Automation.WebApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

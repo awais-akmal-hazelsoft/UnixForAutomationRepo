@@ -1,0 +1,21 @@
+﻿using Automation.WebApp;
+using AutomationProject.Helper;
+using OpenQA.Selenium;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AutomationProject.Factory
+{
+    public static class DashboardFactory
+    {
+        public static DashboardPage Build()
+        {
+            By dashboardHeading = By.CssSelector("h3.page-title");
+
+            return new DashboardPage(Singleton.Driver, dashboardHeading);
+        }
+    }
+}
