@@ -65,17 +65,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factory\CRUDFactory.cs" />
     <Compile Include="Factory\DashboardFactory.cs" />
+    <Compile Include="Factory\GenericPageFactory.cs" />
     <Compile Include="Factory\LoginPageFactory.cs" />
     <Compile Include="Helper\Constants.cs" />
     <Compile Include="Helper\Singleton.cs" />
     <Compile Include="Pages\Base\BasePage.cs" />
     <Compile Include="Pages\HardwareConfiguration\PeripheralTypesPage.cs" />
     <Compile Include="Pages\Login\LoginPage.cs" />
-    <Compile Include="Tests\LoginTestsNew.cs" />
+    <Compile Include="Tests\LoginTestsOld.cs" />
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\PeripheralTypesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\GenericTests.cs" />
+    <Compile Include="Tests\CRUDTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

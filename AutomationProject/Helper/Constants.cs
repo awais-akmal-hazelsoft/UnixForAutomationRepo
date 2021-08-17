@@ -21,5 +21,39 @@ namespace UnixFor.Helper
         public const string FilterNotContainValue = "NOTCONTAINS";
         public const string NameColumnHeadingtext = "Name";
         public const string CodeColumnHeadingtext = "Code";
+
+
+        /******************************************************************************************
+                          New Code
+      ******************************************************************************************/
+        
+        public const string CorrectUsername = "Admin";
+        public const string CorrectPassword = "Admin!23";
+
+        public const string WrongtUsername = "wrong";
+        public const string WrongtPassword = "wrong"; 
+        
+        public const string EmptyUsername = "";
+        public const string EmptyPassword = "";
+        
+
+
+        public const string NewNameValue = "Testing Name";
+        public const string NewCodeValue = "Testing Code";
+
+        public const string NameKeyUpdate = "Testing Name";
+        public const string UpdatedNewName = "New Name";
+        public const string UpdatedNewCode = "New Code";
+
+        public const string NameKeyDelete = "New Name";
+
+
+
+
+
+        
+
+
+
     }
 }

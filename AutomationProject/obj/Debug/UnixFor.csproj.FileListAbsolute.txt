@@ -81,3 +81,5 @@ D:\PROJECTS\Automation\AutomationProject\obj\Debug\AutomationProject.dll
 D:\PROJECTS\Automation\AutomationProject\obj\Debug\AutomationProject.pdb
 D:\PROJECTS\Automation\AutomationProject\bin\Debug\Automation.WebApp.dll
 D:\PROJECTS\Automation\AutomationProject\bin\Debug\Automation.WebApp.pdb
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Automation.WebApp.dll
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Automation.WebApp.pdb

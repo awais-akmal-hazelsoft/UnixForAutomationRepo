@@ -36,7 +36,7 @@ namespace UnixFor.Pages.Base
         protected By ascendingOrderSvg = By.XPath("//th[@class='thead tr wordbreak-audit']//*[local-name()='svg']/*[local-name()='path' and @d='M19 17H22L18 21L14 17H17V3H19M2 17H12V19H2M6 5V7H2V5M2 11H9V13H2V11Z']");
         protected By decendingOrderSvg = By.XPath("//th[@class='thead tr wordbreak-audit']//*[local-name()='svg']/*[local-name()='path' and @d='M18 21L14 17H17V7H14L18 3L22 7H19V17H22M2 19V17H12V19M2 13V11H9V13M2 7V5H6V7H2Z']");
         protected By loadingSpinner = By.CssSelector("div.spinner");
-        protected By paginationInfoList = By.XPath("//*[@id='root']/div[2]/div/main/div/div[2]/div/div[5]/div/div/div[1]/div[1]/nav/ul/div/li[text()='Showing']");
+        protected By paginationInfoList = By.CssSelector("nav.pagination>ul li.pagination-info");
         protected By tableHead = By.XPath("//table/thead/tr");
         protected By filterNameDropdown = By.Name("field0");
         protected By filterTypeDropdown = By.Name("type0");

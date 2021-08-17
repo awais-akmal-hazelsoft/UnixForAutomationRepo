@@ -43,5 +43,12 @@ namespace Automation.WebApp
         {
             return GetElement(_parameters.ModalUsernameTextbox).Enabled;
         }
+
+        public void SelectPeripheralTypes()
+        {
+            SelectMenuOption(_parameters.HardwareConfigurationMenu);
+            SelectMenuItemOption(_parameters.PeripheralTypesMenuItem);
+        }
+
     }
 }

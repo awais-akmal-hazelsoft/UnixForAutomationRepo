@@ -2,6 +2,7 @@
 using AutomationProject.Helper;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using UnixFor.Helper;
 using Assert = NUnit.Framework.Assert;
 
 namespace UnixFor.Tests
@@ -23,9 +24,9 @@ namespace UnixFor.Tests
         }
 
         //********** Test 1 to test empty field login scenarios ***********
-        [TestCase("", "123"), Order(1)]
-        [TestCase("123", "")]
-        [TestCase("", "")]
+        [TestCase(Constants.EmptyUsername, Constants.WrongtPassword), Order(1)]
+        [TestCase(Constants.WrongtUsername, Constants.EmptyPassword)]
+        [TestCase(Constants.EmptyUsername, Constants.EmptyPassword)]
         public void TestLoginEmptyFieldScenario(string name, string password)
         {
             _loginPage.SetUsername(name);
@@ -44,9 +45,10 @@ namespace UnixFor.Tests
         //}
 
         //**************Test 2 to test invalid credentials scenarios***************
-        [TestCase("wrong", "Admin!23"), Order(1)]
-        [TestCase("wrong", "wrong")]
-        [TestCase("admin", "wrong")]
+        [TestCase(Constants.WrongtUsername, Constants.CorrectPassword), Order(1)]
+        [TestCase(Constants.CorrectUsername, Constants.WrongtPassword)]
+        [TestCase(Constants.WrongtUsername, Constants.WrongtPassword)]
+
         public void TestLoginInvalidValuesScenario(string UserName, string password)
         {
             _loginPage.SetUsername(UserName);
@@ -57,7 +59,7 @@ namespace UnixFor.Tests
             Assert.IsFalse(_dashboard.IsDashboardVisible(), "Dashboard Heading is not displayed");
         }
 
-        [TestCase("admin", "Admin!23"), Order(2)]
+        [TestCase(Constants.CorrectUsername, Constants.CorrectPassword), Order(2)]
         public void TestLoginValidValuesScenario(string UserName, string password)
         {
             _loginPage.SetUsername(UserName);
@@ -76,11 +78,5 @@ namespace UnixFor.Tests
         //    loginObj.SetDriver(driver);
         //}
 
-        [OneTimeTearDown]
-        public void Cleanup()
-        {
-            _driver.Close();
-            _driver.Quit();
-        }
     }
 }

@@ -28,7 +28,7 @@ namespace AutomationProject.Tests
             _genericPage.DoubleClickOnRowFirstRow();
             
             Assert.IsTrue(_genericPage.IsModalDisplay(), "Modal is not displayed");
-            Assert.IsTrue(_genericPage.IsModalDisable(), "Modal fields are not displayed");
+            Assert.IsTrue(_genericPage.IsModalDisable(), "Modal fields are not displayed");            
         }
     }
 }

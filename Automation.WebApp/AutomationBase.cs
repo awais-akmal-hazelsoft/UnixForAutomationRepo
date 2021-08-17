@@ -24,6 +24,11 @@ namespace Automation.WebApp
             return _driver.FindElement(element);
         }
 
+        public void ClickOnButton(By element)
+        {
+            GetElement(element).Click();
+        }
+
         public bool IsElementVisible(By element)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(8));
@@ -40,9 +45,15 @@ namespace Automation.WebApp
         }
 
         public void DoubleClick(By element)
-{
+        {
             Actions act = new Actions(_driver);
             act.DoubleClick(GetElement(element));
+        }
+
+        public void SelectSidebarMenu(By menu, By option)
+        {
+            GetElement(menu).Click();
+            GetElement(option).Click();
         }
     }
 }
