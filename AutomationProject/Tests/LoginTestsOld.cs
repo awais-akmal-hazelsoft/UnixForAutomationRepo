@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using UnixFor.Pages.Login;
-using UnixFor.Helper;
 using Assert = NUnit.Framework.Assert;
 using OpenQA.Selenium;
 using UnixFor.Pages.Base;

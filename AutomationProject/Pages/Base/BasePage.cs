@@ -10,8 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnixFor.Pages.Login;
 using UnixFor.Pages.HardwareConfiguration;
-using UnixFor.Helper;
 using System.Text.RegularExpressions;
+using Automation.Helper;
 
 namespace UnixFor.Pages.Base
 {

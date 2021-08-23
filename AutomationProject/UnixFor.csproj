@@ -65,12 +65,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factory\ColumnOrderingFactory.cs" />
     <Compile Include="Factory\CRUDFactory.cs" />
     <Compile Include="Factory\DashboardFactory.cs" />
-    <Compile Include="Factory\GenericPageFactory.cs" />
+    <Compile Include="Factory\FilteringFactory.cs" />
     <Compile Include="Factory\LoginPageFactory.cs" />
-    <Compile Include="Helper\Constants.cs" />
-    <Compile Include="Helper\Singleton.cs" />
+    <Compile Include="Factory\PaginationFactory.cs" />
+    <Compile Include="Factory\ReadonlyViewFactory.cs" />
     <Compile Include="Pages\Base\BasePage.cs" />
     <Compile Include="Pages\HardwareConfiguration\PeripheralTypesPage.cs" />
     <Compile Include="Pages\Login\LoginPage.cs" />
@@ -78,13 +79,19 @@
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\PeripheralTypesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\GenericTests.cs" />
     <Compile Include="Tests\CRUDTests.cs" />
+    <Compile Include="Tests\ColumnOrderingTests.cs" />
+    <Compile Include="Tests\ReadonlyViewTests.cs" />
+    <Compile Include="Tests\PaginationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Automation.Helper\Automation.Helper.csproj">
+      <Project>{45c2c2c5-a0c3-4600-b984-005f09a274c0}</Project>
+      <Name>Automation.Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Automation.WebApp\Automation.WebApp.csproj">
       <Project>{d4ecfd65-e606-4007-920c-2fd6cae2e359}</Project>
       <Name>Automation.WebApp</Name>

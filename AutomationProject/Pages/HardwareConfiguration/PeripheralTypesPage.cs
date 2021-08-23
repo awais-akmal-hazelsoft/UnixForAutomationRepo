@@ -1,15 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
 using UnixFor.Pages.Base;
 using OpenQA.Selenium.Interactions;
 using UnixFor.Pages.Login;
 using OpenQA.Selenium.Support.UI;
-using System.Linq;
-using UnixFor.Helper;
+using Automation.Helper;
 
 namespace UnixFor.Pages.HardwareConfiguration
 {

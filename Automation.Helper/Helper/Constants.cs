@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace UnixFor.Helper
+
+namespace Automation.Helper
 {
     public class Constants
     {
-                   /******************************************************************************************
-                                                       Rejected Code
-                    ******************************************************************************************/
+        /******************************************************************************************
+                                            Rejected Code
+         ******************************************************************************************/
         public const string ExpectedEmptyFieldValidation = "This field is invalid";
         public const string ExpectedUsernameInvalidToastMessage = "Username is incorrect.";
         public const string ExpectedPasswordInvalidToastMessage = "Password is incorrect.";
@@ -26,16 +23,16 @@ namespace UnixFor.Helper
         /******************************************************************************************
                           New Code
       ******************************************************************************************/
-        
+
         public const string CorrectUsername = "Admin";
         public const string CorrectPassword = "Admin!23";
 
         public const string WrongtUsername = "wrong";
-        public const string WrongtPassword = "wrong"; 
-        
+        public const string WrongtPassword = "wrong";
+
         public const string EmptyUsername = "";
         public const string EmptyPassword = "";
-        
+
 
 
         public const string NewNameValue = "Testing Name";
@@ -51,7 +48,7 @@ namespace UnixFor.Helper
 
 
 
-        
+
 
 
 

@@ -6,8 +6,8 @@ namespace AutomationProject.Helper
     {
         static IWebDriver _driver = null;
 
-        public static IWebDriver Driver 
-        { 
+        public static IWebDriver Driver
+        {
             get
             {
                 if (_driver == null)

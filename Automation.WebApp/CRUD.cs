@@ -50,11 +50,7 @@ namespace Automation.WebApp
             return IsElementVisible(_parameters.toastMessaage);
         }
 
-        public void WaitUntilInvisible(By element)
-        {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(element));
-        }
+
 
         public void MatchingRecordForEdit(string nameKey)
         {      

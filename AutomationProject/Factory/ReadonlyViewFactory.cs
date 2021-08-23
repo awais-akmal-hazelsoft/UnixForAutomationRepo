@@ -1,5 +1,5 @@
-﻿using Automation.WebApp;
-using AutomationProject.Helper;
+﻿using Automation.Helper;
+using Automation.WebApp;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -9,21 +9,18 @@ using System.Threading.Tasks;
 
 namespace AutomationProject.Factory
 {
-    public static class GenericPageFactory
+    class ReadonlyViewFactory
     {
-        public static GenericPage Build()
+        public static ReadonlyView Build()
         {
-            var parameters = new GenericPageParameters
+            var parameters = new ReadonlyViewParameters
             {
-                HardwareConfigurationMenu = By.XPath("//button[p[@class= 'sidebar__link-title' and text() = 'Hardware Configuration' ]]"),
-                PeripheralTypesMenuItem = By.CssSelector("a[href='/peripheralsTypes']"),
                 FirstRow = By.CssSelector("table.react-table tr"),
                 Modal = By.CssSelector("div.modal-content"),
                 ModalUsernameTextbox = By.CssSelector("input[name= 'name']"),
                 ModalPasswordTextbox = By.CssSelector("input[name= 'code']"),
-        };
-
-            return new GenericPage(Singleton.Driver, parameters);
+            };
+            return new ReadonlyView(Singleton.Driver, parameters);
         }
     }
 }

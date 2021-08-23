@@ -19,6 +19,12 @@ namespace Automation.WebApp
             _toastMessage = toastMessage;
         }
 
+        public LoginPage(IWebDriver driver)
+            : base(driver)
+        {
+            _driver = driver;
+        }
+
         public void SetUsername(string userName)
         {
             _driver.FindElement(_userName).Clear();

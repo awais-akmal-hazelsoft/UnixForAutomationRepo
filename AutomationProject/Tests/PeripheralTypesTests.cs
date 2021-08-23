@@ -3,7 +3,7 @@ using NUnit.Framework;
 using UnixFor.Pages.HardwareConfiguration;
 using OpenQA.Selenium;
 using UnixFor.Pages.Base;
-using UnixFor.Helper;
+using Automation.Helper;
 
 namespace UnixFor.Tests
 {

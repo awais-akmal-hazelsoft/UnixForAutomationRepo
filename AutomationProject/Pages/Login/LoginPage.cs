@@ -8,8 +8,9 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using UnixFor.Pages.Base;
 using NUnit.Framework;
-using UnixFor.Helper;
+//using UnixFor.Helper;
 using System.Threading;
+using Automation.Helper;
 
 namespace UnixFor.Pages.Login
 {

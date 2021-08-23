@@ -2,11 +2,7 @@
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Automation.WebApp
 {
@@ -54,6 +50,12 @@ namespace Automation.WebApp
         {
             GetElement(menu).Click();
             GetElement(option).Click();
+        }
+
+        public void WaitUntilInvisible(By element)
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(element));
         }
     }
 }
