@@ -41,6 +41,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gallio, Version=3.4.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <HintPath>..\packages\mbunit.3.4.14.0\lib\net40\Gallio.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio40, Version=3.4.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <HintPath>..\packages\mbunit.3.4.14.0\lib\net40\Gallio40.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <HintPath>..\packages\mbunit.3.4.14.0\lib\net40\MbUnit.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit40, Version=3.4.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <HintPath>..\packages\mbunit.3.4.14.0\lib\net40\MbUnit40.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.2.1.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -65,17 +77,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helper\Constants.cs" />
+    <Compile Include="Factory\ColumnOrderingFactory.cs" />
+    <Compile Include="Factory\CRUDFactory.cs" />
+    <Compile Include="Factory\DashboardFactory.cs" />
+    <Compile Include="Factory\FilteringFactory.cs" />
+    <Compile Include="Factory\LoginPageFactory.cs" />
+    <Compile Include="Factory\PaginationFactory.cs" />
+    <Compile Include="Factory\ReadonlyViewFactory.cs" />
     <Compile Include="Pages\Base\BasePage.cs" />
     <Compile Include="Pages\HardwareConfiguration\PeripheralTypesPage.cs" />
     <Compile Include="Pages\Login\LoginPage.cs" />
-    <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\PeripheralTypesTests.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\CRUDTests.cs" />
+    <Compile Include="Tests\ColumnOrderingTests.cs" />
+    <Compile Include="Tests\ReadonlyViewTests.cs" />
+    <Compile Include="Tests\PaginationTests.cs" />
+    <Compile Include="Tests\LoginTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Automation.Helper\Automation.Helper.csproj">
+      <Project>{45c2c2c5-a0c3-4600-b984-005f09a274c0}</Project>
+      <Name>Automation.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Automation.WebApp\Automation.WebApp.csproj">
+      <Project>{d4ecfd65-e606-4007-920c-2fd6cae2e359}</Project>
+      <Name>Automation.WebApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
