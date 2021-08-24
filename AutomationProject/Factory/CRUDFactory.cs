@@ -26,7 +26,7 @@ namespace AutomationProject.Factory
                 PeripheralTypesMenuItem = By.CssSelector("a[href='/peripheralsTypes']"),
             };
 
-            return new CRUD(Singleton.Driver, parameters);
+            return new CRUD(WebDriver.Driver, parameters);
         }
     }
 }

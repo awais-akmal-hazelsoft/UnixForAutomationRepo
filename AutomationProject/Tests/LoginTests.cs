@@ -3,11 +3,14 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using Automation.Helper;
 using Assert = NUnit.Framework.Assert;
+using MbUnit.Framework;
 
 namespace UnixFor.Tests
 {
-    [TestFixture]
-    public class LoginTestsNew
+    
+    [NUnit.Framework.TestFixture, Order(1)]
+    
+    public class LoginTests
     {
         IWebDriver _driver;
 
@@ -17,13 +20,14 @@ namespace UnixFor.Tests
         [OneTimeSetUp]
         public void TestInit()
         {
-            _driver = Singleton.Driver;
+            _driver = WebDriver.Driver;
             _loginPage = LoginPageFactory.Build();
             _dashboard = DashboardFactory.Build();
         }
 
-        //********** Test 1 to test empty field login scenarios ***********
-        [TestCase(Constants.EmptyUsername, Constants.WrongtPassword), Order(1)]
+        //********** Test 1: to test empty field login scenarios ***********
+        
+        [TestCase(Constants.EmptyUsername, Constants.WrongtPassword), DependsOnAttribute(""), Order(3)]
         [TestCase(Constants.WrongtUsername, Constants.EmptyPassword)]
         [TestCase(Constants.EmptyUsername, Constants.EmptyPassword)]
         public void TestLoginEmptyFieldScenario(string name, string password)
@@ -33,18 +37,12 @@ namespace UnixFor.Tests
 
             _loginPage.ClickLoginButton();
 
-            Assert.IsTrue(_loginPage.IsToastMessageVisible(), "Toast message is not displayed");
+            Assert.IsFalse(_loginPage.IsUsernameRequiredMessageVisible() || _loginPage.IsPasswordRequiredMessageVisible(), "Toast message is not displayed");
         }
-        //[TestCase("", "123"), Order(1)]
-        //[TestCase("123", "")]
-        //[TestCase("", "")]
-        //public void TestLoginEmptyFieldScenario(string UserName, string password)
-        //{
-        //    loginObj.CheckLoginEmptyFieldScenarios(UserName, password);
-        //}
 
-        //**************Test 2 to test invalid credentials scenarios***************
-        [TestCase(Constants.WrongtUsername, Constants.CorrectPassword), Order(1)]
+        //**************Test 2: to test invalid credentials scenarios***************
+     
+        [TestCase(Constants.WrongtUsername, Constants.CorrectPassword), DependsOnAttribute("TestLoginEmptyFieldScenario()"), Order(2)]
         [TestCase(Constants.CorrectUsername, Constants.WrongtPassword)]
         [TestCase(Constants.WrongtUsername, Constants.WrongtPassword)]
 
@@ -58,7 +56,9 @@ namespace UnixFor.Tests
             Assert.IsFalse(_dashboard.IsDashboardVisible(), "Dashboard Heading is not displayed");
         }
 
-        [TestCase(Constants.CorrectUsername, Constants.CorrectPassword), Order(2)]
+        //**************Test 3: to test invalid credentials scenarios***************
+
+        [TestCase(Constants.CorrectUsername, Constants.CorrectPassword), DependsOnAttribute("TestLoginInvalidValuesScenario()"), Order(1)]
         public void TestLoginValidValuesScenario(string UserName, string password)
         {
             _loginPage.SetUsername(UserName);
@@ -68,14 +68,5 @@ namespace UnixFor.Tests
 
             Assert.IsTrue(_dashboard.IsDashboardVisible(), "Dashboard Heading is not displayed");
         }
-
-        //******************Test 3 to test valid login scenario*******************
-        //[TestCase("Admin", "Admin!23"), Order(3)]
-        //public void TestValidLogin(string UserName, string password)
-        //{
-        //    loginObj.CheckValidLoginFieldScenarios(UserName, password);
-        //    loginObj.SetDriver(driver);
-        //}
-
     }
 }

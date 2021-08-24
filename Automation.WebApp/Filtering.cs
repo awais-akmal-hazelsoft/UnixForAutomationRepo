@@ -1,9 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Automation.WebApp
 {
@@ -28,11 +23,22 @@ namespace Automation.WebApp
             GetElement(_parameters.ApplyFilterButton).Click();
         }
 
-        public void ClickOnColumnNameDropdown()
+        public void ClickOnFilterNameDropdown()
         {
             GetElement(_parameters.FilterNameDropdown).Click();
         }
+        
+        public void ClickOnFilterTypeDropdown()
+        {
+            GetElement(_parameters.FilterTypeDropdown).Click();
+        }
 
+        public void ClickOnFilterValueDropdown()
+        {
+            GetElement(_parameters.FilterValueDropDown).Click();
+        }
+
+        
         
     }
 }

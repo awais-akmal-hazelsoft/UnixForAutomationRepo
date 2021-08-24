@@ -6,15 +6,17 @@ namespace AutomationProject.Tests
     [TestFixture]
     public class ReadonlyViewTests
     {
-        Automation.WebApp.ReadonlyView _readOnlyViewObj;
+        Automation.WebApp.ReadonlyView _readOnlyView;
         [Test]
         public void TestReadonlyView()
         {
+            //_readOnlyView.SelectSidebarMenu();
+            //_readOnlyView.ClickOnButton();
 
-            _readOnlyViewObj.DoubleClickOnRowFirstRow();
+            _readOnlyView.DoubleClickOnRowFirstRow();
 
-            Assert.IsTrue(_readOnlyViewObj.IsModalDisplay(), "Modal is not displayed");
-            Assert.IsTrue(_readOnlyViewObj.IsModalDisable(), "Modal fields are not displayed");
+            Assert.IsTrue(_readOnlyView.IsModalDisplay(), "Modal is not displayed");
+            Assert.IsTrue(_readOnlyView.IsModalDisable(), "Modal fields are not displayed");
         }
     }
 }

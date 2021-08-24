@@ -21,7 +21,7 @@ namespace AutomationProject.Factory
         };
 
 
-            return new Pagination(Singleton.Driver, parameters);
+            return new Pagination(WebDriver.Driver, parameters);
         }
     }
 }

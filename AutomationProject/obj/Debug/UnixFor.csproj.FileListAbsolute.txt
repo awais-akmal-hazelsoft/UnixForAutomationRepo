@@ -85,3 +85,15 @@ C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\Automati
 C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Automation.WebApp.pdb
 C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Automation.Helper.dll
 C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Automation.Helper.pdb
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Gallio.dll
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Gallio40.dll
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\MbUnit.dll
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\MbUnit40.dll
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Gallio.pdb
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Gallio.xml
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Gallio40.pdb
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\Gallio40.xml
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\MbUnit.pdb
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\MbUnit.xml
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\MbUnit40.pdb
+C:\Users\Abu Bakar\source\repos\AutomationProject\UnixForAutomationRepo\AutomationProject\bin\Debug\MbUnit40.xml

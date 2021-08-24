@@ -2,11 +2,11 @@
 using Automation.Helper;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using System;
 
 namespace AutomationProject.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture, Order(2)]
+    
     public class CRUDTests
     {
         IWebDriver _driver;
@@ -14,22 +14,21 @@ namespace AutomationProject.Tests
         Automation.WebApp.CRUD _CRUD;
         //Automation.WebApp.DashboardPage _dashboard;
 
-        [OneTimeSetUp]
+        [OneTimeSetUp, MbUnit.Framework.DependsOn("LoginTests")]
         public void TestInit()
         {
-            _driver = Singleton.Driver;
+            _driver = WebDriver.Driver;
             _CRUD = CRUDFactory.Build();
-            //_dashboard = DashboardFactory.Build();
         }
 
-        [Test, Order(1)]
+        [Test,Order(5)]
         public void TestSelectOption()
         {
             _CRUD.SelectMenuOption();
 
         }
 
-        [Test, Order(2)]
+        [Test, Order(4)]
         public void TestAdd()
         {
             _CRUD.ClickOnAddButton();
@@ -75,8 +74,8 @@ namespace AutomationProject.Tests
         [OneTimeTearDown]
         public void Cleanup()
         {
-            _driver.Close();
-            _driver.Quit();
+            //_driver.Close();
+            //_driver.Quit();
         }
 
     }

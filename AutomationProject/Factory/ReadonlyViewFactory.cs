@@ -20,7 +20,7 @@ namespace AutomationProject.Factory
                 ModalUsernameTextbox = By.CssSelector("input[name= 'name']"),
                 ModalPasswordTextbox = By.CssSelector("input[name= 'code']"),
             };
-            return new ReadonlyView(Singleton.Driver, parameters);
+            return new ReadonlyView(WebDriver.Driver, parameters);
         }
     }
 }

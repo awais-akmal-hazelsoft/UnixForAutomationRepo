@@ -16,7 +16,7 @@ namespace AutomationProject.Factory
                 FilterTypeDropdown = By.Name("type0"),
                 FilterValueDropDown = By.Name("value0"),
             };
-            return new Filtering(Singleton.Driver, parameters);
+            return new Filtering(WebDriver.Driver, parameters);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace AutomationProject.Tests
         [OneTimeSetUp]
         public void TestInit()
         {
-            _driver = Singleton.Driver;
+            _driver = WebDriver.Driver;
             _ColumnOrderingObj = ColumnOrderingFactory.Build();
             //_dashboard = DashboardFactory.Build();
         }

@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\Constants.cs" />
-    <Compile Include="Helper\Singleton.cs" />
+    <Compile Include="Helper\WebDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

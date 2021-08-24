@@ -2,7 +2,7 @@
 
 namespace Automation.Helper
 {
-    public static class Singleton
+    public static class WebDriver
     {
         static IWebDriver _driver = null;
 

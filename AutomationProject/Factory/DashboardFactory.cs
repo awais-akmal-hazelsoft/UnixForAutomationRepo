@@ -15,7 +15,7 @@ namespace AutomationProject.Factory
         {
             By dashboardHeading = By.CssSelector("h3.page-title");
 
-            return new DashboardPage(Singleton.Driver, dashboardHeading);
+            return new DashboardPage(WebDriver.Driver, dashboardHeading);
         }
     }
 }

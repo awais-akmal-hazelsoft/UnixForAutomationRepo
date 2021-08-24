@@ -19,7 +19,7 @@ namespace AutomationProject.Factory
 
             };
 
-            return new ColumnOrdering(Singleton.Driver, parameters);
+            return new ColumnOrdering(WebDriver.Driver, parameters);
         }
     }
 }

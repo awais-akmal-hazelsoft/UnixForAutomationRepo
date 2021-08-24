@@ -41,6 +41,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gallio, Version=3.4.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <HintPath>..\packages\mbunit.3.4.14.0\lib\net40\Gallio.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio40, Version=3.4.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <HintPath>..\packages\mbunit.3.4.14.0\lib\net40\Gallio40.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <HintPath>..\packages\mbunit.3.4.14.0\lib\net40\MbUnit.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit40, Version=3.4.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <HintPath>..\packages\mbunit.3.4.14.0\lib\net40\MbUnit40.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.2.1.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -75,14 +87,13 @@
     <Compile Include="Pages\Base\BasePage.cs" />
     <Compile Include="Pages\HardwareConfiguration\PeripheralTypesPage.cs" />
     <Compile Include="Pages\Login\LoginPage.cs" />
-    <Compile Include="Tests\LoginTestsOld.cs" />
-    <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\PeripheralTypesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\CRUDTests.cs" />
     <Compile Include="Tests\ColumnOrderingTests.cs" />
     <Compile Include="Tests\ReadonlyViewTests.cs" />
     <Compile Include="Tests\PaginationTests.cs" />
+    <Compile Include="Tests\LoginTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
